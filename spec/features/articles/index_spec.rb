@@ -10,4 +10,22 @@ RSpec.describe "When I visit a articles index page", type: :feature do
     expect(page).to have_content(article1.title)
     expect(page).to have_content(article2.title)
   end
+
+  it "I can click on a title and be taken to article show page" do
+    article1 = Article.create!(title: "Title 1", body: "Body 1")
+
+    visit articles_path
+
+    click_link(article1.title)
+
+    expect(current_path).to eql(article_path(article1))
+  end
+
+  it "I can click a create article link and be taken to the new article form." do
+    visit articles_path
+
+    click_link("New Article")
+
+    expect(current_path).to eql(new_article_path)
+  end
 end
